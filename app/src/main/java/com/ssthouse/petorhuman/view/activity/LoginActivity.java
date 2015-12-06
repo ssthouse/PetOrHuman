@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.MenuItemCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,7 +21,7 @@ import de.greenrobot.event.EventBus;
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends BaseActivity {
 
     private LoginFragment loginFragment;
     private SignUpFragment signUpFragment;
@@ -50,6 +49,10 @@ public class LoginActivity extends AppCompatActivity {
         pb.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * progressbar事件
+     * @param event
+     */
     public void onEventMainThread(ProgressBarEvent event){
 
     }
