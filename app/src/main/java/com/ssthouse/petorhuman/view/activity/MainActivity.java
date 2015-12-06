@@ -13,7 +13,6 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.ssthouse.petorhuman.R;
-import com.ssthouse.petorhuman.rtrofit.test;
 
 public class MainActivity extends BaseActivity{
 
@@ -24,7 +23,7 @@ public class MainActivity extends BaseActivity{
         initView();
 
         //TODO
-        test.testRetrofit();
+//        test.testRetrofit();
     }
 
     private void initView(){

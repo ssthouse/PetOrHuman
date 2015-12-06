@@ -4,7 +4,7 @@ import android.app.Application;
 
 import com.orhanobut.logger.LogLevel;
 import com.orhanobut.logger.Logger;
-import com.umeng.analytics.MobclickAgent;
+import com.umeng.update.UmengUpdateAgent;
 
 /**
  * Created by ssthouse on 2015/12/5.
@@ -21,6 +21,7 @@ public class App extends Application {
                 .hideThreadInfo();
 
         //umeng
-        MobclickAgent.setDebugMode(false);
+        //MobclickAgent.setDebugMode(false);
+        UmengUpdateAgent.update(this);
     }
 }

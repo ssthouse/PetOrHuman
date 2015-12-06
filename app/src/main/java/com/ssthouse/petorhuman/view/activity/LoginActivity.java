@@ -7,7 +7,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.MenuItemCompat;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ProgressBar;
 
 import com.ssthouse.petorhuman.R;
@@ -44,9 +43,9 @@ public class LoginActivity extends BaseActivity {
     private void initView() {
         setSupportActionBar((android.support.v7.widget.Toolbar) findViewById(R.id.id_tb));
 
-        pb = (ProgressBar) getSupportActionBar().getCustomView()
-                .findViewById(R.id.id_action_pb);
-        pb.setVisibility(View.VISIBLE);
+//        pb = (ProgressBar) getSupportActionBar().getCustomView()
+//                .findViewById(R.id.id_action_pb);
+//        pb.setVisibility(View.VISIBLE);
     }
 
     /**
