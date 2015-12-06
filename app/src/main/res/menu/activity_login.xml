@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/id_action_pb"
+        app:actionProviderClass="com.ssthouse.petorhuman.view.widget.TbProgressProvider"
+        app:showAsAction="always"
+        android:orderInCategory="10"
+        android:title="进度"/>
+
+    <item
+        android:id="@+id/id_action_add_user"
+        android:icon="@drawable/ic_action_new"
+        android:orderInCategory="100"
+        android:title="新用户"
+        app:showAsAction="always" />
+</menu>
