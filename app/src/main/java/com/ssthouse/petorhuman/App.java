@@ -29,5 +29,7 @@ public class App extends Application {
 
         //fir---bug统计
         FIR.init(this);
+        //设为开发模式---不提交bug
+        FIR.setDebug(true);
     }
 }

@@ -24,6 +24,7 @@
         <meta-data android:value="default" android:name="UMENG_CHANNEL"/>
         <!--bugHD集成-->
         <meta-data android:value="f49dec3ec7df506b8b49a95856285b77" android:name="BUG_HD_SDK_GENERAL_KEY" />
+
         <activity
             android:name=".view.activity.MainActivity"
             android:screenOrientation="portrait"
