@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.MenuItemCompat;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ProgressBar;
 
 import com.ssthouse.petorhuman.R;
@@ -80,6 +81,8 @@ public class LoginActivity extends BaseActivity {
         getMenuInflater().inflate(R.menu.activity_login, menu);
         MenuItem item = menu.findItem(R.id.id_action_pb);
         TbProgressProvider tbProgressProvider = (TbProgressProvider) MenuItemCompat.getActionProvider(item);
+        pb = (ProgressBar) item.getActionView().findViewById(R.id.id_action_pb);
+        pb.setVisibility(View.VISIBLE);
         return true;
     }
 

@@ -1,5 +1,10 @@
 package com.ssthouse.petorhuman.rtrofit;
 
+import android.util.Log;
+
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.SaveCallback;
 import com.orhanobut.logger.Logger;
 
 import retrofit.Call;
@@ -30,6 +35,20 @@ public class test {
             @Override
             public void onFailure(Throwable t) {
 
+            }
+        });
+    }
+
+    public static void testAvCloud(){
+        // 测试 SDK 是否正常工作的代码
+        AVObject testObject = new AVObject("TestObject");
+        testObject.put("words","Hello,World!");
+        testObject.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(AVException e) {
+                if(e == null){
+                    Log.d("saved","success!");
+                }
             }
         });
     }

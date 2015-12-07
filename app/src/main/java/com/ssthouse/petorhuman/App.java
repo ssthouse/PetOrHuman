@@ -2,6 +2,7 @@ package com.ssthouse.petorhuman;
 
 import android.app.Application;
 
+import com.avos.avoscloud.AVOSCloud;
 import com.orhanobut.logger.LogLevel;
 import com.orhanobut.logger.Logger;
 import com.umeng.analytics.MobclickAgent;
@@ -31,5 +32,8 @@ public class App extends Application {
         FIR.init(this);
         //设为开发模式---不提交bug
         FIR.setDebug(true);
+
+        //leanCloud集成
+        AVOSCloud.initialize(this, "baGcAcqXpQnoAJCGryuz9kIF", "iegM684uOe88JElH1jdpel03");
     }
 }
