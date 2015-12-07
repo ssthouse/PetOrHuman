@@ -43,4 +43,5 @@ dependencies {
     //umeng
     compile 'com.umeng.analytics:analytics:latest.integration'
     compile files('libs/umeng-update-v2.6.0.1.jar')
+    compile 'com.android.support:cardview-v7:23.1.1'
 }
