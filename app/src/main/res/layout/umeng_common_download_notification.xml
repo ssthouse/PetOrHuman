@@ -49,7 +49,6 @@
                 android:layout_width="50dp"
                 android:layout_height="25dp"
                 android:background="@drawable/umeng_common_gradient_orange"
-                android:singleLine="true"
                 android:text="@string/umeng_common_action_pause"
                 android:textSize="12sp" />
 
@@ -57,10 +56,7 @@
                 android:id="@+id/umeng_common_rich_notification_cancel"
                 android:layout_width="50dp"
                 android:layout_height="25dp"
-                android:layout_marginLeft="2dp"
-                android:layout_marginRight="2dp"
                 android:background="@drawable/umeng_common_gradient_red"
-                android:singleLine="true"
                 android:text="@string/umeng_common_action_cancel"
                 android:textSize="12sp" />
         </LinearLayout>
