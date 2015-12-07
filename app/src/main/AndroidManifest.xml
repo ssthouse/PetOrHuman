@@ -7,6 +7,8 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.GET_TASKS"/>
+
 
 
     <application
@@ -20,7 +22,8 @@
         <!--umeng集成-->
         <meta-data android:value="566438ffe0f55abf920046d3" android:name="UMENG_APPKEY"/>
         <meta-data android:value="default" android:name="UMENG_CHANNEL"/>
-
+        <!--bugHD集成-->
+        <meta-data android:value="f49dec3ec7df506b8b49a95856285b77" android:name="BUG_HD_SDK_GENERAL_KEY" />
         <activity
             android:name=".view.activity.MainActivity"
             android:screenOrientation="portrait"
