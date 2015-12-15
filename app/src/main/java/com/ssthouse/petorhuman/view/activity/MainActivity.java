@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.avos.avoscloud.AVUser;
 import com.ssthouse.petorhuman.R;
 import com.ssthouse.petorhuman.control.utils.PreferenceHelper;
 
@@ -37,9 +38,10 @@ public class MainActivity extends BaseActivity{
      */
     private void login(){
         boolean isFistIn = PreferenceHelper.getInstance(this).isFistIn();
-        if(isFistIn) {
-            LoginActivity.start(this);
+        //第一次进去---或者缓存用户为空
+        if(isFistIn || AVUser.getCurrentUser() == null) {
             finish();
+            LoginActivity.start(this);
         }
     }
 
@@ -109,6 +111,13 @@ public class MainActivity extends BaseActivity{
             case R.id.id_action_setting:
                 break;
             case R.id.id_action_log_out:
+                //登出
+                AVUser.logOut();
+                //重置为第一次进入
+                PreferenceHelper.getInstance(this).setIsFistIn(false);
+                //结束当前activity
+                finish();
+                //启动login activity
                 LoginActivity.start(this);
         }
         return super.onOptionsItemSelected(item);

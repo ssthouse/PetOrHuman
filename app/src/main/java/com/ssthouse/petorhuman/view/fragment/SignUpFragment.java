@@ -14,6 +14,7 @@ import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.LogInCallback;
 import com.ssthouse.petorhuman.R;
 import com.ssthouse.petorhuman.control.UserHelper;
+import com.ssthouse.petorhuman.control.utils.NetUtil;
 import com.ssthouse.petorhuman.control.utils.PreferenceHelper;
 import com.ssthouse.petorhuman.control.utils.ToastHelper;
 import com.ssthouse.petorhuman.model.event.LoginActivityFinishEvent;
@@ -54,9 +55,10 @@ public class SignUpFragment extends Fragment {
         btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                prepareSignUp();
-                //TODO---用户名和密码的判断
-                //尝试注册
+                if (!NetUtil.isConnected(getContext())) {
+                    ToastHelper.show(getContext(), "请检查网络连接");
+                    return;
+                }
                 UserHelper.tryNewUser(etUserName.getText().toString(), etPassword.getText().toString());
             }
         });
@@ -65,18 +67,18 @@ public class SignUpFragment extends Fragment {
     /**
      * 点击注册时的UI准备
      */
-    private void prepareSignUp(){
+    private void prepareSignUp() {
         btnSignup.setClickable(false);
         EventBus.getDefault().post(new ProgressBarEvent(true));
     }
 
     /**
      * 用户创建结果的回调
+     *
      * @param event
      */
-    public void onEventMainThread(UserCreateEvent event){
-        if(event.isSuccess()){
-            //TODO---跳转主activity
+    public void onEventMainThread(UserCreateEvent event) {
+        if (event.isSuccess()) {
             EventBus.getDefault().post(new LoginActivityFinishEvent());
             //记录登陆状态
             PreferenceHelper.getInstance(getContext()).setIsFistIn(false);
@@ -84,12 +86,12 @@ public class SignUpFragment extends Fragment {
             AVUser.logInInBackground(etUserName.getText().toString(), etPassword.getText().toString(), new LogInCallback<AVUser>() {
                 @Override
                 public void done(AVUser avUser, AVException e) {
-                    EventBus.getDefault().post(new ProgressBarEvent(false));
+                    EventBus.getDefault().post(new LoginActivityFinishEvent());
                     MainActivity.start(getContext());
                     ToastHelper.show(getContext(), "登陆成功");
                 }
             });
-        }else{
+        } else {
             ToastHelper.show(getContext(), "该用户名已被使用");
             EventBus.getDefault().post(new ProgressBarEvent(false));
             btnSignup.setClickable(true);

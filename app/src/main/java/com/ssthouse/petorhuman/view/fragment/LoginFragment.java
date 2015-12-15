@@ -15,6 +15,7 @@ import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.LogInCallback;
 import com.ssthouse.petorhuman.R;
+import com.ssthouse.petorhuman.control.utils.NetUtil;
 import com.ssthouse.petorhuman.control.utils.PreferenceHelper;
 import com.ssthouse.petorhuman.control.utils.ToastHelper;
 import com.ssthouse.petorhuman.model.event.LoginActivityFinishEvent;
@@ -67,6 +68,10 @@ public class LoginFragment extends Fragment {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!NetUtil.isConnected(getContext())) {
+                    ToastHelper.show(getContext(), "请检查网络连接");
+                    return;
+                }
                 prepareLogin();
                 login();
             }
@@ -76,7 +81,7 @@ public class LoginFragment extends Fragment {
     /**
      * 登陆的UI准备
      */
-    private void prepareLogin(){
+    private void prepareLogin() {
         EventBus.getDefault().post(new ProgressBarEvent(true));
         btnLogin.setClickable(false);
     }
@@ -84,20 +89,21 @@ public class LoginFragment extends Fragment {
     /**
      * 登陆
      */
-    private void login(){
+    private void login() {
         //TODO---尝试登陆
         String userName = autoEtUserName.getText().toString();
         String password = etPassword.getText().toString();
         AVUser.logInInBackground(userName, password, new LogInCallback<AVUser>() {
             @Override
             public void done(AVUser avUser, AVException e) {
-                if(e == null){
+                if (e == null) {
                     //TODO--跳转主activity
-                    EventBus.getDefault().post(new LoginActivityFinishEvent());
                     PreferenceHelper.getInstance(getContext()).setIsFistIn(false);
+                    EventBus.getDefault().post(new LoginActivityFinishEvent());
                     MainActivity.start(getContext());
-                }else{
+                } else {
                     ToastHelper.show(getContext(), "用户名或密码错误");
+                    EventBus.getDefault().post(new ProgressBarEvent(false));
                 }
             }
         });

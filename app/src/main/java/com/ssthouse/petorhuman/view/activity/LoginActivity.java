@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.orhanobut.logger.Logger;
 import com.ssthouse.petorhuman.R;
 import com.ssthouse.petorhuman.model.event.LoginActivityFinishEvent;
 import com.ssthouse.petorhuman.model.event.ProgressBarEvent;
@@ -73,6 +74,7 @@ public class LoginActivity extends BaseActivity {
      * @param event
      */
     public void onEventMainThread(LoginActivityFinishEvent event){
+        Logger.e("退出LoginActivity");
         finish();
     }
 
