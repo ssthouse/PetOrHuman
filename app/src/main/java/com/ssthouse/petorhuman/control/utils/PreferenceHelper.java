@@ -1,4 +1,4 @@
-package com.ssthouse.petorhuman.control;
+package com.ssthouse.petorhuman.control.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -17,9 +17,10 @@ public class PreferenceHelper {
      */
     private static PreferenceHelper preferenceHelper;
 
+    /**
+     * preference文件名
+     */
     private static final String PREFERENCE_NAME = "preference";
-
-    private SharedPreferences sharedPreferences;
 
     /**
      * 获取单例
@@ -27,12 +28,17 @@ public class PreferenceHelper {
      * @param context
      * @return
      */
-    public PreferenceHelper getInstance(Context context) {
+    public static PreferenceHelper getInstance(Context context) {
         if (preferenceHelper == null) {
             preferenceHelper = new PreferenceHelper(context);
         }
         return preferenceHelper;
     }
+
+    /**
+     * 当前preference
+     */
+    private SharedPreferences sharedPreferences;
 
     /**
      * 构造方法
@@ -42,6 +48,26 @@ public class PreferenceHelper {
     private PreferenceHelper(Context context) {
         //初始化sharedPreference
         sharedPreferences = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
+    }
+
+    public static final String KEY_IS_FIST_IN = "isFistIn";
+
+    /**
+     * 是否第一次进去应用
+     * @return
+     */
+    public boolean isFistIn(){
+        return sharedPreferences.getBoolean(KEY_IS_FIST_IN, true);
+    }
+
+    /**
+     * 设置是否为第一次进入
+     * @param isFistIn
+     */
+    public void setIsFistIn(boolean isFistIn){
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(KEY_IS_FIST_IN, isFistIn);
+        editor.commit();
     }
 
     /**

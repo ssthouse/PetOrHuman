@@ -11,7 +11,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.LogInCallback;
 import com.ssthouse.petorhuman.R;
+import com.ssthouse.petorhuman.control.utils.PreferenceHelper;
+import com.ssthouse.petorhuman.control.utils.ToastHelper;
+import com.ssthouse.petorhuman.model.event.LoginActivityFinishEvent;
+import com.ssthouse.petorhuman.model.event.ProgressBarEvent;
+import com.ssthouse.petorhuman.view.activity.MainActivity;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import de.greenrobot.event.EventBus;
 
 /**
  * 登陆Fragment
@@ -19,10 +31,17 @@ import com.ssthouse.petorhuman.R;
  */
 public class LoginFragment extends Fragment {
 
-    private AutoCompleteTextView autoEtUserName;
-    private EditText etPassword;
-    private Button btnLogin;
-    private ImageView ivAvatar;
+    @Bind(R.id.id_et_username)
+    AutoCompleteTextView autoEtUserName;
+
+    @Bind(R.id.id_et_password)
+    EditText etPassword;
+
+    @Bind(R.id.id_btn_login)
+    Button btnLogin;
+
+    @Bind(R.id.id_iv_avatar)
+    ImageView ivAvatar;
 
 
     @Override
@@ -36,38 +55,51 @@ public class LoginFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View rootView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_login, null);
+        ButterKnife.bind(this, rootView);
         initView(rootView);
         return rootView;
     }
 
     private void initView(View rootView) {
-        ivAvatar = (ImageView) rootView.findViewById(R.id.id_iv_avatar);
         //TODO---获取本地avatar--如果有的话
         ivAvatar.setImageResource(R.drawable.ic_action_person);
 
-        //用户名(自动提示本地username)
-        autoEtUserName = (AutoCompleteTextView) rootView.findViewById(R.id.id_et_username);
-
-        etPassword = (EditText) rootView.findViewById(R.id.id_et_password);
-
-        //登陆
-        btnLogin = (Button) rootView.findViewById(R.id.id_btn_login);
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                prepareLogin();
                 login();
             }
         });
     }
 
     /**
+     * 登陆的UI准备
+     */
+    private void prepareLogin(){
+        EventBus.getDefault().post(new ProgressBarEvent(true));
+        btnLogin.setClickable(false);
+    }
+
+    /**
      * 登陆
      */
     private void login(){
-        //先disable按钮
-        btnLogin.setClickable(false);
         //TODO---尝试登陆
         String userName = autoEtUserName.getText().toString();
         String password = etPassword.getText().toString();
+        AVUser.logInInBackground(userName, password, new LogInCallback<AVUser>() {
+            @Override
+            public void done(AVUser avUser, AVException e) {
+                if(e == null){
+                    //TODO--跳转主activity
+                    EventBus.getDefault().post(new LoginActivityFinishEvent());
+                    PreferenceHelper.getInstance(getContext()).setIsFistIn(false);
+                    MainActivity.start(getContext());
+                }else{
+                    ToastHelper.show(getContext(), "用户名或密码错误");
+                }
+            }
+        });
     }
 }

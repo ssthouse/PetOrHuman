@@ -1,5 +1,7 @@
 package com.ssthouse.petorhuman.view.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -13,19 +15,32 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.ssthouse.petorhuman.R;
-import com.ssthouse.petorhuman.rtrofit.test;
+import com.ssthouse.petorhuman.control.utils.PreferenceHelper;
 
 public class MainActivity extends BaseActivity{
+
+    public static void start(Context context){
+        Intent intent = new Intent(context, MainActivity.class);
+        context.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
+        login();
+    }
 
-        //TODO
-//        test.testRetrofit();
-        test.testAvCloud();
+    /**
+     * 登陆
+     */
+    private void login(){
+        boolean isFistIn = PreferenceHelper.getInstance(this).isFistIn();
+        if(isFistIn) {
+            LoginActivity.start(this);
+            finish();
+        }
     }
 
     private void initView(){

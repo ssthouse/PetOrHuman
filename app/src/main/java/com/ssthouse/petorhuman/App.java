@@ -24,7 +24,7 @@ public class App extends Application {
                 .setLogLevel(LogLevel.FULL)
                 .hideThreadInfo();
 
-        //umeng
+        //umeng---用户使用统计---自动更新
         MobclickAgent.setDebugMode(true);
         UmengUpdateAgent.update(this);
 
